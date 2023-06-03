@@ -21,6 +21,7 @@ func (g Gender) String() string {
 }
 
 type Pokemon struct {
+	Id        int
 	Name      string
 	Category  string
 	Height    float64

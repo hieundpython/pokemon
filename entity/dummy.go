@@ -3,6 +3,7 @@ package entity
 func GetDummyPokemons() []Pokemon {
 	return []Pokemon{
 		{
+			Id:        1,
 			Name:      "Pikachu",
 			Category:  "Mouse",
 			Height:    0.4,
@@ -11,6 +12,7 @@ func GetDummyPokemons() []Pokemon {
 			Abilities: "Static",
 		},
 		{
+			Id:        2,
 			Name:      "Charizard",
 			Category:  "Flame",
 			Height:    1.7,
@@ -19,6 +21,7 @@ func GetDummyPokemons() []Pokemon {
 			Abilities: "Blaze",
 		},
 		{
+			Id:        3,
 			Name:      "Bulbasaur",
 			Category:  "Seed",
 			Height:    0.7,

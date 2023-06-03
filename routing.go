@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"pokemon/services"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,7 +30,15 @@ func getPokemons(c *gin.Context) {
 func getPokemonById(c *gin.Context) {
 	id := c.Param("id")
 
-	c.IndentedJSON(http.StatusOK, Data{Message: id})
+	num, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	pokemon := services.GetPokemonById(num)
+
+	c.IndentedJSON(http.StatusOK, pokemon)
 }
 
 func postPokemon(c *gin.Context) {

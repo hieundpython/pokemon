@@ -21,5 +21,6 @@ DELETE: pokemons/{id}
 
 TODO:
 - Using dataset for show pokemon list
+- Write unit test for project
 - Migration dataset into database using background job
 - DevOps: Using docker container, deploy into AWS or Google Engine

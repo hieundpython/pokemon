@@ -5,9 +5,11 @@ import (
 	"pokemon/entity"
 
 	"github.com/mitchellh/mapstructure"
+	"github.com/samber/lo"
 )
 
 type PokemonDto struct {
+	Id        int
 	Name      string
 	Category  string
 	Height    float64
@@ -34,4 +36,26 @@ func GetPokemons() []PokemonDto {
 	}
 
 	return result
+}
+
+func GetPokemonById(id int) PokemonDto {
+	dummyData := entity.GetDummyPokemons()
+
+	var matchData = lo.Filter(dummyData, func(data entity.Pokemon, index int) bool {
+		return data.Id == id
+	})
+
+	var pokemonDto PokemonDto
+
+	if matchData != nil {
+		err := mapstructure.Decode(matchData[0], &pokemonDto)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return pokemonDto
+		}
+
+		pokemonDto.GenderStr = matchData[0].Gender.String()
+	}
+
+	return pokemonDto
 }
