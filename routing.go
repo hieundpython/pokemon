@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"pokemon/entity"
 	"pokemon/services"
 	"strconv"
 
@@ -42,7 +43,14 @@ func getPokemonById(c *gin.Context) {
 }
 
 func postPokemon(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, Data{Message: "post pokemon"})
+	var newPokemon entity.Pokemon
+	if err := c.BindJSON(&newPokemon); err != nil {
+		return
+	}
+
+	pokemons := services.PostPokemon(newPokemon)
+
+	c.IndentedJSON(http.StatusOK, pokemons)
 }
 
 func putPokemon(c *gin.Context) {

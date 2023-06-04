@@ -19,10 +19,8 @@ type PokemonDto struct {
 }
 
 func GetPokemons() []PokemonDto {
-	dummyData := entity.GetDummyPokemons()
-
 	var result []PokemonDto
-	for _, pokemon := range dummyData {
+	for _, pokemon := range entity.DummyData {
 
 		var pokemonDto PokemonDto
 		err := mapstructure.Decode(pokemon, &pokemonDto)
@@ -39,9 +37,8 @@ func GetPokemons() []PokemonDto {
 }
 
 func GetPokemonById(id int) PokemonDto {
-	dummyData := entity.GetDummyPokemons()
 
-	var matchData = lo.Filter(dummyData, func(data entity.Pokemon, index int) bool {
+	var matchData = lo.Filter(entity.DummyData, func(data entity.Pokemon, index int) bool {
 		return data.Id == id
 	})
 
@@ -58,4 +55,32 @@ func GetPokemonById(id int) PokemonDto {
 	}
 
 	return pokemonDto
+}
+
+func PostPokemon(pokemon entity.Pokemon) []PokemonDto {
+
+	entity.DummyData = append(entity.DummyData, pokemon)
+
+	var result []PokemonDto
+	for _, pokemon := range entity.DummyData {
+
+		var pokemonDto PokemonDto
+		err := mapstructure.Decode(pokemon, &pokemonDto)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return nil
+		}
+
+		pokemonDto.GenderStr = pokemon.Gender.String()
+		result = append(result, pokemonDto)
+	}
+
+	return result
+}
+
+func PutPokemon() {
+}
+
+func DeletePokemon() {
+
 }
